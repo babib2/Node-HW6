@@ -13,8 +13,7 @@ var http    = require("http");
 var Cookies = require('cookies');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
-var passport =require('passport');
-var LocalStrategy = require('passport-local')
+
 
 
 
@@ -25,27 +24,8 @@ app.use(cookieSession({
 
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
 
 
-/*passport.use(new LocalStrategy(function (username, pass, done) {
-	if(username == 'login' && pass == 'login' )
-		return done(null, {username: username});
-	done(null, false);
-
-}));
-
-// Метод сохранения данных пользователя в сессии
-passport.serializeUser(function (user, done) {
-  done(null, user.username);
-});
-
-// Метод извлечения данных пользователя из сессии
-passport.deserializeUser(function (username, done) {
-  done(null, {username: username});
-});
-*/
 app.engine('hbs', templating);
 // по умолчанию используем .hbs шаблоны%
 app.set('view engine', 'hbs');
@@ -139,17 +119,9 @@ app.post('/login', function(req, res){
 	
 	
 });
-//END закомментировать
-//раскомментировать
-
-/*app.post('/login', bodyParser.urlencoded({ extended: false }), passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
-*/
 
 //Редактирование задачи
-app.get('/edit/:id', mustBeAuthentificated,  function(req, res){
+app.get('/edit/:id', function(req, res){
 // выводим данные на основе шаблона
 // console.log('add');
 		 todoList.findTask(req.params.id, function (err, task) {
